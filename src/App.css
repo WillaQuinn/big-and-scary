@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Press Start 2P', monospace;
+  color: white;
+}
+
+.cave-background {
+  position: absolute; /* Ensures it spans the entire viewport */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background: url('./assets/caves/Basic_Cave.png') no-repeat center center;
+  background-size: cover; /* Ensures the image covers the entire background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Press Start 2P', monospace;
+  color: white;
+}
+
+.cave-title {
+  position: absolute;
+  top: 2rem; /* Position it near the top of the page */
+  text-align: center;
+  font-size: 1.5rem;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add a subtle shadow for better visibility */
+}
+
+.cave-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.5rem;
+  width: 20ch; /* Initial width */
+  outline: none;
+  transition: width 0.2s ease; /* Smooth resizing */
+}
+
+.cave-input::placeholder {
+  color: #888;
+}
+
+.enter-button {
+  position: absolute; /* Position it relative to the viewport */
+  bottom: 2rem; /* Distance from the bottom of the page */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for centering */
+  background-color: #d4a73d;
+  color: black;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #f4e04d;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px #f4e04d;
+  transition: box-shadow 0.2s ease-in-out; /* Smooth glow effect */
+}
+
+.enter-button:hover {
+  box-shadow: 0 0 20px #f4e04d, 0 0 40px #f4e04d; /* Add a stronger glow effect */
+}
+
+.fear-echo {
+  position: absolute;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  font-family: 'Press Start 2P', monospace;
+  animation: fadeOut 3s forwards; /* Fade out over 3 seconds */
+  pointer-events: none; /* Prevent interaction */
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5); /* Shrink slightly */
+  }
+}
+
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  text-align: center;
+  padding: 2rem;
+  animation: fadeIn 1s ease-in-out; /* Fade-in effect */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.twinkling-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  pointer-events: none; /* Prevent interaction */
+  z-index: -1; /* Place behind the text */
+  animation: twinkle 2s infinite; /* Infinite twinkling effect */
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 1%, transparent 1%);
+    background-size: 50px 50px;
+  }
+  50% {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 1%, transparent 1%);
+    background-size: 50px 50px;
+  }
+}
+
+.quote {
+  font-size: 1.2rem;
+  margin: 0 2rem; /* Add horizontal margins */
+  padding: 0 1rem; /* Add padding for extra spacing */
+  max-width: 80%; /* Ensure the quote doesn't exceed 80% of the screen width */
+  word-wrap: break-word; /* Break long words if necessary */
+}
+
+.author {
+  font-size: 1rem;
+  color: #f4e04d; /* Yellowish color for the author */
+  margin-top: 1rem;
+  padding: 0 1rem; /* Add padding for extra spacing */
+  max-width: 80%; /* Ensure the author text doesn't exceed 80% of the screen width */
+  word-wrap: break-word; /* Break long words if necessary */
+}
+
+.fear-collection {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #000000 url('./assets/caves/OasisCave.png') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.stone {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.stone:hover {
+  transform: scale(1.2);
+}
+
+.hovered-fear {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+}
+
+.fear-details {
+  padding: 2rem;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+}
+
+.notes {
+  width: 100%;
+  height: 100px;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-family: 'Press Start 2P', monospace;
+}
+
+.chatbox {
+  margin-top: 2rem;
+}
+
+.chat-messages {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.chatbox input {
+  width: calc(100% - 80px);
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.chatbox button {
+  padding: 0.5rem;
+}
+
+.firefly {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: firefly-fade 2s infinite ease-in-out, firefly-move 4s infinite ease-in-out;
+  pointer-events: none; /* Prevent interaction */
+}
+
+@keyframes firefly-fade {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes firefly-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, -10px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
