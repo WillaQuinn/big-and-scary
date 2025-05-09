@@ -1,40 +1,66 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
+const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
 function FearDetails() {
   const location = useLocation();
-  const fear = location.state as { text: string; createdAt: Date };
+  const fear = location.state as { text: string; createdAt: Date } || { text: 'Unknown Fear', createdAt: new Date() };
   const [notes, setNotes] = useState('');
   const [chatMessages, setChatMessages] = useState<string[]>([]);
 
   const handleChatSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("API Key loaded:", apiKey);
     e.preventDefault();
     const userMessage = e.currentTarget.elements.namedItem('chatInput') as HTMLInputElement;
     const userText = userMessage.value;
     userMessage.value = '';
 
     // Add user message to chat
-    setChatMessages([...chatMessages, `You: ${userText}`]);
+    setChatMessages((prev) => [...prev, `You: ${userText}`]);
+    
 
-    // Call OpenAI API for a response
-    const response = await fetch('https://api.openai.com/v1/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer YOUR_OPENAI_API_KEY`, // Replace with your OpenAI API key
+    try {
+      // Call OpenAI API for a response
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${apiKey}`,
+  },
+  body: JSON.stringify({
+    model: 'gpt-3.5-turbo',
+    messages: [
+      {
+        role: 'system',
+        content: `You are a supportive guide helping users work through their fears.`,
       },
-      body: JSON.stringify({
-        model: 'text-davinci-003',
-        prompt: `The user is afraid of: "${fear.text}". Provide advice or encouragement.`,
-        max_tokens: 100,
-      }),
-    });
-    const data = await response.json();
-    const aiResponse = data.choices[0].text.trim();
+      {
+        role: 'user',
+        content: `The user is afraid of: "${fear.text}". They said: "${userText}". Provide advice or encouragement.`,
+      },
+    ],
+    max_tokens: 150,
+  }),
+});
 
-    // Add AI response to chat
-    setChatMessages((prev) => [...prev, `AI: ${aiResponse}`]);
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+    const data = await response.json();
+    const aiResponse = data.choices[0].message.content.trim();
+
+
+      // Add AI response to chat
+      setChatMessages((prev) => [...prev, `AI: ${aiResponse}`]);
+      
+    } catch (error) {
+      console.error('Error calling OpenAI API:', error);
+      setChatMessages((prev) => [...prev, 'AI: Sorry, something went wrong.']);
+      
+    }
   };
 
   return (
