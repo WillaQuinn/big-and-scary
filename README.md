@@ -1,54 +1,60 @@
-# React + TypeScript + Vite
+# Big and Scary (or *I’ve Been Meaning To...*)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Big and Scary is a space to store the things you’ve been putting off — the weird, the personal, the overdue, the existential. It’s an app designed to help you externalize what’s weighing on you and slowly make it less... terrifying.
 
-Currently, two official plugins are available:
+Whether it’s **writing a will**, **calling someone you miss**, **canceling a gym membership**, or **making that dentist appointment**, Big and Scary gives you a place to face your monsters.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Why This Exists
 
-## Expanding the ESLint configuration
+We all carry mental clutter — tasks and thoughts that feel so overwhelming, we delay them until they grow claws. But naming them is the first step toward taming them. Big and Scary turns avoidance into acknowledgment and dread into (gentle) progress.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+By typing these things out, you:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+* Admit they exist (harder than it sounds)
+* Reduce the shame spiral
+* Start forming a path forward
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## How It Works
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Submit a Fear**
+   Type something you’ve been avoiding or worrying about. Be honest, be vague, be dramatic — it’s your fear.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+2. **Visual Feedback**
+   Your fear appears in a pixelated, ominous cave (because metaphor). Each one is represented as a little stone, slightly scary but not insurmountable.
+
+3. **Oasis Mode**
+   When you're ready, click on a stone. You’ll enter a calming oasis space with:
+
+   * Helpful AI-generated suggestions for facing the fear
+   * A progress tracker
+   * Space to write personal notes or updates
+
+4. **Repeat Until You’re Braver Than You Think**
+
+## Tech Stack
+
+* **Frontend**: React + Framer Motion
+* **Backend**: Node/Express + MongoDB
+* **AI**: OpenAI API for personalized suggestions
+* **Design**: Pixel art aesthetic, dynamic transitions from cave (problem space) to oasis (solution space)
+
+## Example Fears
+
+* “Schedule my annual physical”
+* “Break up with my therapist”
+* “Organize my grandma’s old photos”
+* “Find out how to make a will”
+* “Start the web series”
+
+## Who It’s For
+
+Big and Scary is for anyone with a brain. It’s especially helpful if:
+
+* You’re overwhelmed by your to-do list
+* You’re procrastinating out of fear, not laziness
+* You want structure, but not pressure
+* You like confronting hard things with a side of weird whimsy
+
+## Status
+
+Currently in development! UI and visual transitions are built, OpenAI integration is live, and fear submission + feedback loop are working in beta.

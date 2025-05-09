@@ -78,21 +78,24 @@ body, html {
 
 .fear-echo {
   position: absolute;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.8);
   font-family: 'Press Start 2P', monospace;
-  animation: fadeOut 3s forwards; /* Fade out over 3 seconds */
+  animation: echo-fade 3s ease-in-out forwards;
   pointer-events: none; /* Prevent interaction */
 }
 
-@keyframes fadeOut {
+@keyframes echo-fade {
   0% {
     opacity: 1;
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1); /* Start at normal size */
   }
   100% {
     opacity: 0;
-    transform: scale(0.5); /* Shrink slightly */
+    transform: translate(-50%, -50%) scale(0.5); /* Shrink to half its size */
   }
 }
 
@@ -174,14 +177,16 @@ body, html {
 
 .stone {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 60px; /* Increased from 50px to 60px (20% larger) */
+  height: 60px; /* Increased from 50px to 60px (20% larger) */
   cursor: pointer;
+  background: none; /* Ensure no background color is applied */
+  background-size: cover;
   transition: transform 0.2s ease-in-out;
 }
 
 .stone:hover {
-  transform: scale(1.2);
+  transform: scale(1.2); /* Add a hover effect */
 }
 
 .hovered-fear {
@@ -260,4 +265,25 @@ body, html {
   100% {
     transform: translate(0, 0);
   }
+}
+
+.back-button {
+  position: fixed; /* Fixed position to stay at the bottom right */
+  bottom: 1rem; /* Distance from the bottom */
+  right: 1rem; /* Distance from the right */
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 0.5rem 1rem;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.back-button:hover {
+  background-color: white;
+  color: black;
 }

@@ -12,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [randomQuote, setRandomQuote] = useState<{ quote: string; author: string } | null>(null);
   const [stonePositions, setStonePositions] = useState<{ top: string; left: string }[]>([]);
+  const [echoedWord, setEchoedWord] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -44,7 +45,11 @@ function App() {
     e.preventDefault();
     if (fear.trim()) {
       setSubmittedFears([...submittedFears, { text: fear, createdAt: new Date() }]); // Add fear with timestamp
+      setEchoedWord(fear); // Set the echoed word
       setFear('');
+
+      // Clear the echoed word after 3 seconds
+      setTimeout(() => setEchoedWord(null), 3000);
     }
   };
 
@@ -71,7 +76,12 @@ function App() {
             element={
               showCave ? (
                 <>
-                  <h1 className="cave-title">Tell the cave what is big and scary</h1>
+                  <h1 className="cave-title">
+                    <div>Enter things you’ve been avoiding.</div>
+                    <div style={{ marginTop: '1.5rem' }}>
+                      Tasks that have been lurking in the depths of your brain.
+                    </div>
+                  </h1>
                   <form onSubmit={handleSubmit}>
                     <input
                       className="cave-input"
@@ -80,6 +90,11 @@ function App() {
                       onChange={(e) => setFear(e.target.value)}
                     />
                   </form>
+                  {echoedWord && (
+                    <div className="fear-echo">
+                      {echoedWord}
+                    </div>
+                  )}
                   {submittedFears.length > 0 && (
                     <button className="enter-button" onClick={handleEnterCave}>
                       Enter the Cave
@@ -92,24 +107,37 @@ function App() {
                   {submittedFears.map((fear, index) => (
                     <img
                       key={index}
-                      src={`./assets/stones/stone1.png`} // Use stone images from the folder
-                      alt="Stone"
+                      src={`/stones/stone${(index % 2) + 1}.png`}
+                      alt=""
                       className="stone"
                       style={{
-                        top: stonePositions[index]?.top, // Use pre-generated position
-                        left: stonePositions[index]?.left, // Use pre-generated position
-                        position: 'absolute', // Ensure the stones are absolutely positioned
+                        top: stonePositions[index]?.top,
+                        left: stonePositions[index]?.left,
+                        position: 'absolute',
                       }}
-                      onMouseEnter={() => setHoveredFear(fear.text)} // Show fear text on hover
-                      onMouseLeave={() => setHoveredFear(null)} // Hide fear text when not hovering
-                      onClick={() => handleStoneClick(fear)} // Navigate to fear details page
+                      onMouseEnter={() => setHoveredFear(fear.text)}
+                      onMouseLeave={() => setHoveredFear(null)}
+                      onClick={() => handleStoneClick(fear)}
                     />
                   ))}
+                  <button className="back-button" onClick={() => navigate('/')}>
+                    Back
+                  </button>
                 </div>
               )
             }
           />
-          <Route path="/fear-details" element={<FearDetails />} />
+          <Route
+            path="/fear-details"
+            element={
+              <>
+                <FearDetails />
+                <button className="back-button" onClick={() => navigate('/')}>
+                  Back
+                </button>
+              </>
+            }
+          />
         </Routes>
       )}
     </div>
